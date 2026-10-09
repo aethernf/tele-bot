@@ -5,6 +5,12 @@ set -e
 REPO_DIR="${AETH_REPO_DIR:-/app/worker-repo}"
 GITHUB_REPO="${GITHUB_KEYLIST_REPO:-}"
 
+# Pastikan git tersedia (install kalau belum ada)
+if ! command -v git >/dev/null 2>&1; then
+  echo "Install git..."
+  apt-get update -qq && apt-get install -y -qq git
+fi
+
 if [ ! -d "$REPO_DIR/.git" ]; then
   if [ -z "$GITHUB_REPO" ]; then
     echo "ERROR: AETH_REPO_DIR belum ada dan GITHUB_KEYLIST_REPO belum diset."
